@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import name.parsak.api.Tcpip;
 import name.parsak.dto.UsrDptRole;
 import name.parsak.model.Department;
 import name.parsak.model.Menu;
@@ -317,5 +318,13 @@ public class WebController {
 	public String addNewRole(@ModelAttribute(project_name) UsrDptRole deptrole) {
 		this.userDBService.AddRole(deptrole.getRolename());
 		return "redirect:/departments";
+	}
+	
+	@RequestMapping(value="/api_test")
+	public String test_api(Model model) {
+		Tcpip tcpip = new Tcpip();
+		String response = tcpip.get("http://www.google.com");
+		model.addAttribute("response", response);
+		return "api_test";
 	}
 }
